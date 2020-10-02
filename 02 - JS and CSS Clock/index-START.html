@@ -5,8 +5,6 @@
   <title>JS + CSS Clock</title>
 </head>
 <body>
-
-
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
@@ -18,7 +16,7 @@
 
   <style>
     html {
-      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+      background: #018DED url(https://images.unsplash.com/photo-1435224668334-0f82ec57b605?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
       background-size: cover;
       font-family: 'helvetica neue';
       text-align: center;
@@ -37,7 +35,7 @@
     .clock {
       width: 30rem;
       height: 30rem;
-      border: 20px solid white;
+      border: 3px solid white;
       border-radius: 50%;
       margin: 50px auto;
       position: relative;
@@ -58,7 +56,7 @@
 
     .hand {
       width: 50%;
-      height: 6px;
+      height: 3px;
       background: black;
       position: absolute;
       top: 50%;
@@ -69,13 +67,13 @@
       transition-timing-function: cubic-bezier(0.1, 0.26, 0, 1.87);
     }
     .hour-hand{
-      background: red;
+      background: rgb(1, 121, 190);
     }
     .min-hand{
       background: rgb(8, 223, 223);
     }
     .second-hand{
-      background: rgb(16, 150, 34);
+      background: rgb(162, 224, 226);
     }
   </style>
 
