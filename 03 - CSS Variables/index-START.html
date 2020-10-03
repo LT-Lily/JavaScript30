@@ -5,10 +5,11 @@
   <title>Scoped CSS Variables and JS</title>
 </head>
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2>Update CSS Variables with <span class='highlight'>JS</span></h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
+    <!-- data-sizing prefix with px -->
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
     <label for="blur">Blur:</label>
@@ -21,7 +22,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /* css variables */
 
+    :root{
+      --base: red;
+      --spacing: 20px;
+      --blur: 10px;
+    }
+
+    img{
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+    .highlight{
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +61,29 @@
   </style>
 
   <script>
+   const inputs = document.querySelectorAll(".controls input");
+   //console.log(inputs);
+   /* Node list vs array: 
+   array has array methods: map, filter, reduce etc.
+   Node list can be converted to array.
+   Node list has forEach() method as seen in _proto_: */
+
+   function handleUpdate(){
+     //console.log("this.value");
+     //dataset is an object that will contain data attributes from specific element.
+     const suffix = this.dataset.sizing || ""; //hex code has no suffix
+     //select variable: select document (:root)
+     //set property of blur, spacing, blur
+     console.log(this.name);
+
+     document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+   }
+   
+   inputs.forEach((input)=> {
+     input.addEventListener("change", handleUpdate);
+     input.addEventListener("mousemove", handleUpdate);
+   });
+  
   </script>
 
 </body>
