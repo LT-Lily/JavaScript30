@@ -7,6 +7,9 @@
 </head>
 <body>
   <style>
+    /* Whwen clicked, top words disappear up and down */
+    /* When clicked, box gets bigger */
+
     html {
       box-sizing: border-box;
       background: #ffc600;
@@ -22,12 +25,14 @@
     *, *:before, *:after {
       box-sizing: inherit;
     }
-
+    /* MAIN FLEX CONTAINER */
     .panels {
       min-height: 100vh;
       overflow: hidden;
+      display: flex; /* ADDED BY ME (1)*/
     }
 
+    /* FLEX ITEM & FLEX CONTAINER */
     .panel {
       background: #6B0F9C;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
@@ -43,6 +48,11 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
+      flex: 1; /* ADDED BY ME (2): evenly distribute extra space*/
+      display: flex; /*turn into flex container*/
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
@@ -51,12 +61,28 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
-    /* Flex Children */
-    .panel > * {
+    /* FLEX ITEMS */
+    .panel > * { /*selecting all child elements of panel class*/
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      border: 1px solid red; /* ADDED BY ME (2)*/
+      display: flex;
+      flex: 1 0 auto; /* grow | shrink | be at x size of flexbox */
     }
+    /* make top and bottom flex items hide up and down */
+    .panel > *:first-child{ /*first child of class panel*/
+      color: red;
+      transform: translateY(-100%); /*shifts up*/
+    }
+    .panel > *:last-child{ 
+      color: 
+      green;
+      transform: translateY(100%); /*shifts down*/
+    }
+
+    .panel.open-active > *:first-child { transform: translateY(0); }  /* When panel has a class .open-active, translateY 0 */
+    .panel.open-active > *:last-child { transform: translateY(0); }
 
     .panel p {
       text-transform: uppercase;
@@ -70,6 +96,7 @@
     }
 
     .panel.open {
+      flex: 5; /* ADDED BY ME */ /*when it has class .open, take 5x as much space */
       font-size: 40px;
     }
 
@@ -105,7 +132,20 @@
   </div>
 
   <script>
+    // when clicked, adds or removes classes
 
+    const panels = document.querySelectorAll(".panel");
+
+    function toggleOpen(){ 
+      this.classList.toggle("open");
+     }
+     function toggleActive(e) {
+      if(e.propertyName.includes("flex")){
+        this.classList.toggle("open-active");
+      }
+    }
+    panels.forEach( panel => panel.addEventListener("click", toggleOpen));
+    panels.forEach( panel => panel.addEventListener("transitionend", toggleActive));
   </script>
 
 
