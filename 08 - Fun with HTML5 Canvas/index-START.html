@@ -17,7 +17,7 @@
   ctx.lineJoin = "round"; //when line intersects
   ctx.lineCap = "round"; 
   ctx.lineWidth = 35;
-
+  ctx.globalCompositeOperation = "source-out";// blend modes
   let isDrawing = false; //only draws when cursor is clicked
   //click down = true
   //let go = false
@@ -25,10 +25,14 @@
   //start end end drawing point
   let lastX = 0;
   let lastY = 0;
+  let hue = 0;
+  let direction = true;
 //draw function called whenever mouse is moving on canvas
   function draw(e){
     if(!isDrawing) return; //stop function from running when not moused down
     console.log(e);
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; //Saturation = 100%, Lightness = 50%
+    //ctx.lineWidth = hue; //lineWidth increases as hue increases
     ctx.beginPath();
     //start with X and Y, move to X and Y
     ctx.moveTo(lastX, lastY);//start fromm   //offset method s are from events.
@@ -39,6 +43,21 @@
     // lastX = e.offsetX;
     // lastY = e.offsetY;
     // update last x and last y
+    
+    hue++; //hsl: if over 360, 
+    if(hue >= 360){
+      hue = 0;
+    }
+    if(ctx.lineWidth >= 100 || ctx.lineWidth <=1){
+      //flip the direction
+      direction = !direction;
+    }
+    if(direction){
+      ctx.lineWidth++;
+    }
+      else{
+      ctx.lineWidth--;
+    }
   }
 
 
@@ -68,4 +87,7 @@
 H: hue: red to red
 S: saturation (brightness)
 L: lightness
+https://mothereffinghsl.com/
 -->
+
+<!--Global composite operator-->
