@@ -15,7 +15,8 @@
   canvas.height = window.innerHeight;
   ctx.strokeStyle = "#BADA55";
   ctx.lineJoin = "round"; //when line intersects
-  ctx.lineCap = "round";
+  ctx.lineCap = "round"; 
+  ctx.lineWidth = 35;
 
   let isDrawing = false; //only draws when cursor is clicked
   //click down = true
@@ -24,21 +25,32 @@
   //start end end drawing point
   let lastX = 0;
   let lastY = 0;
-
 //draw function called whenever mouse is moving on canvas
   function draw(e){
     if(!isDrawing) return; //stop function from running when not moused down
     console.log(e);
     ctx.beginPath();
     //start with X and Y, move to X and Y
-    ctx.moveTo(lastX, lastY);//start from
+    ctx.moveTo(lastX, lastY);//start fromm   //offset method s are from events.
     ctx.lineTo(e.offsetX, e.offsetY); //go to
-    //offset method s are from events.
+    
     ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY]; //destructuring an array(ES6)
+    // lastX = e.offsetX;
+    // lastY = e.offsetY;
     // update last x and last y
   }
+
+
+  canvas.addEventListener("mousedown", (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+  });
+  
+  //as soon as clicks to start
+
+
   canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("mousedown", () => isDrawing = true);
   canvas.addEventListener("mouseup", () => isDrawing = false);
   canvas.addEventListener("mouseout", () => isDrawing = true);
 </script>
@@ -51,3 +63,9 @@
 
 </body>
 </html>
+
+<!-- hsl is the rainbow where we can programatically select pieces of the rainbow
+H: hue: red to red
+S: saturation (brightness)
+L: lightness
+-->
