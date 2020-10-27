@@ -7,6 +7,26 @@
 </head>
 <body>
 <script>
+// Key sequencing detection:
+// store into array
+// check if it matches string
+
+  // 2. when key pressed, push into an array
+  const pressed = [];
+  const secretCode = "lily" // 3. word to look for: max length is 4 characters
+  window.addEventListener("keyup", (e) => { //1
+    console.log(e.key);
+    pressed.push(e.key)//4
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length)//4 start counting from back
+    if(pressed.join("").includes(secretCode)){
+     //console.log("You found the secret code!");
+     cornify_add();
+    }
+    console.log(pressed);
+
+  });
+  
+  
 </script>
 </body>
 </html>
